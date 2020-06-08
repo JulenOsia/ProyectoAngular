@@ -1,0 +1,50 @@
+<div>
+    <h3>Secciones deportivas</h3>
+    
+    <p>Esta es las sección deportiva donde el club Anaitasuna dispone de los siguientes secciones a practicar:</p>
+        <ul>
+            <li><a href="http://www.anaitasuna.com/balonmano/balonmano.html" target="_blank">Balonmano</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/gimnasia/seccion.html" target="_blank">Gimnasia Ritmica</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/montana/historia.html" target="_blank">Montañismo</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/ciclismo/ciclismo.html" target="_blank">Ciclismo</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/futbolsala/futbolsala.html" target="_blank">Fútbol Sala</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/halterofilia/halterofilia.html" target="_blank">Halterofilia</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/judo/judo.html" target="_blank">Judo</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/natacion/seccion.html" target="_blank">Natación</a></li>
+            <li><a href="http://www.anaitasuna.com/secciones/padel/padel.html" target="_blank">Padel</a></li>
+        </ul>
+    
+    <form name="formAnadirJugador" method="POST">
+        <fieldset>
+            <legend>Inscríbase</legend>
+            <label>Nombre:</label>
+            <input type="text" ng-model="secciones.nombre" name="nombre" class="form-control" required>
+            <span ng-show="nombreError">Por favor, introduzca un nombre</span>
+            <label>Apellidos:</label>
+            <input type="text" ng-model="secciones.apellidos" name="apellidos" class="form-control" required>
+            <span ng-show="apellidoError">Por favor, introduzca un apellido</span>
+            <label for="edad">Edad:</label>
+            <input type="number" ng-model="secciones.edad" name="edad" min="5" max="80" class="form-control" required/>
+            <label for="email">Correo electrónico:</label>
+            <input type="email" ng-model="secciones.email" name="email" class="form-control" required/>
+            <br/>
+            <select name="deporte" ng-model="secciones.deporte" ng-options="obj.value as obj.label for obj in secciones.datos">
+                <option value="">¿A que deporte le gustaria inscribirse?</option>
+            </select>
+            <br/>
+            <br/>
+            <label>¿Es usted socio?</label>
+            <br/>
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" ng-model="secciones.si" name="socio" value="si">Si 
+            &nbsp&nbsp&nbsp
+            <input type="radio" ng-model="secciones.no" name="socio" value="no">No
+            <br/><br/>
+            <button class="btn btn-success mb-2" ng-click="anadirJugador()" name="anadirJugador">Inscribirse</button>
+            <button type="reset" class="btn btn-danger mb-2">Limpiar</button>
+        </fieldset>
+    </form>
+    <div ng-show="completo">
+        Gracias por inscribirse, pronto nos pondremos en contacto con usted.
+    </div>
+</div>

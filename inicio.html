@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Anaitasuna</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <script type="text/javascript" src="lib/jQuery-3.4.1.js"></script>
+    <script type="text/javascript" src="lib/angular-1.7.9/angular.min.js"></script>
+    <script type="text/javascript" src="lib/angular-1.7.9/angular-route.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body ng-app="anaitasunaApp">
+    <header>
+        <div ng-controller="mainController">
+            <div class="jumbotron text-center" id="cabecera">
+                <h1>{{ bienvenida }}</h1>
+            </div>
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!/">Inicio</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!/secciones" ng-click="estilosAngular()">Secciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!/instalaciones">Instalaciones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#!/contacto">Contacto</a>
+                            </li>    
+                        </ul>
+                    </div>  
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div ng-view>
+
+        </div>
+    </div>
+    <footer>
+        <section class="row text-center">
+            <div class="col">
+                <p>Página web realizada en AngularJS por Julen Osia</p>
+            </div>
+            <div class="col">
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licencia de Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br /></a>.
+            </div>
+            <div class="col">
+                <p>Página web realizada en AngularJS por Julen Osia</p>
+            </div>
+        </section>
+    </footer>
+</body>
+</html>

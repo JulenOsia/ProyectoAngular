@@ -1,0 +1,47 @@
+<div class="container">
+
+<h3>Contacta con nosotros</h3>
+
+    <p>Puede contactar con Anaitasuna a través de los siguientes maneras:</p>
+    <ul>
+        <li>A través de este pequeño formulario donde puede explicarnos todas sus dudas</li><br/>
+        <div class="form-group">
+            <form name="formContacto" ng-submit="validar()" novalidate>
+
+                <div ng-show="mostrarMensajeExito" class="alert alert-success" role="alert">
+					Gracias por su mensaje, le responderemos cuanto antes.
+				</div>
+
+                <div class="alert alert-danger" role="alert" ng-show="mostrarMensajeError">
+                    {{ errorPromise }}
+                </div>
+                <ul>
+                    <li>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" placeholder="Juan" name="nombre" ng-model="contacto.nombre" required/>
+                        <span ng-show="nombreError">El campo nombre no puede estar vacio</span>
+
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" name="apellidos" placeholder="Fernández" ng-model="contacto.apellidos" required/>
+                        <span ng-show="apellidoError">El campo apellido no puede estar vacio</span>
+                    </li>
+                    <li>
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" name="email" class="form-control" ng-model="contacto.email" required/>
+                        <span ng-show="emailError">Introduzca un email válido</span>
+                    </li>
+                    <li>
+                        <label for="msg">Mensaje:</label>
+                        <textarea cols="30" rows="7" class="form-control" name="mensaje" ng-model="contacto.mensaje" required></textarea>
+                    </li>
+                    <br/>
+                    <input type="submit" class="btn btn-primary mb-2" value="Enviar"/>
+                    <button type="reset" class="btn btn-danger mb-2">Borrar</button>
+                </ul>
+
+                <br/>
+            </form>
+        </div>
+        <li>A través de nuestro teléfono de contacto: <b>948235998</b></li>
+    </ul> 
+</div>

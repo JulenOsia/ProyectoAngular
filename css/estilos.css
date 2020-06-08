@@ -1,0 +1,22 @@
+#cabecera {
+    background: url(../imagenes/escudorp.jpg);
+    background-size: cover;
+    color: white;
+}
+
+/* Estilos del footer */
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+body {
+    margin-bottom:80px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
