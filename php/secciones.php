@@ -1,16 +1,20 @@
 <?php
+	/*$prueba = json_decode($_POST);*/
+	
+	$json = file_get_contents('php://input');
+	$obj = json_decode($json);
 
-if(isset($_POST['anadirJugador'])) {
+	// Conectando, seleccionando la base de datos	
+	$link = mysqli_connect('localhost', 'root', '', 'anaitasunajo')
+	    or die('No se pudo conectar: ' . mysql_error());
+	
+	// Realizar una consulta MySQL
+	$query = "insert into socios(dni, nombre, apellido, edad, email, iddeporte)
+	 values ('$obj->dni', '$obj->nombre', '$obj->apellido', '$obj->edad', '$obj->email', '$obj->deportes')";
 
-    $data = json_decode(file_get_contents("php://input"));
-    $nombre = mysql_real_escape_string($data->nombre);
-    $apellido = mysql_real_escape_string($data->apellido);
-    $email = mysql_real_escape_string($data->email);
-    $mensaje = mysql_real_escape_string($data->mensaje);
-    mysql_connect("localhost", "root", "") or die(mysql_error());
-    mysql_select_db("anaitasunajo") or die(mysql_error());
-    mysql_query("INSERT INTO deportes * VALUES ('$nombre', '$apellido','$email','$mensaje')");
-    Print "Your information has been successfully added to the database."; 
+	$result = mysqli_query($link, $query) or die('Consulta fallida: ' . mysql_error());
 
+	$resultData = array("id"=>mysqli_insert_id($link));
 
-}
+	echo json_encode($resultData);
+?>

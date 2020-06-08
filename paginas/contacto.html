@@ -15,20 +15,28 @@
                 <div class="alert alert-danger" role="alert" ng-show="mostrarMensajeError">
                     {{ errorPromise }}
                 </div>
+
+                <div ng-show="cajaErrores" class="alert alert-danger" role="alert">
+                    <p ng-show="nombreError">El campo nombre no puede estar vacio</p>
+                    <p ng-show="apellidoError">El campo apellido no puede estar vacio</p>
+                    <p ng-show="emailError">Introduzca un email válido</p>
+                    <span ng-show="mensajeError">Debe escribir algo como mensaje</span>
+                </div>
+
                 <ul>
                     <li>
                         <label for="nombre">Nombre:</label>
                         <input type="text" placeholder="Juan" name="nombre" ng-model="contacto.nombre" required/>
-                        <span ng-show="nombreError">El campo nombre no puede estar vacio</span>
-
+                        
+                        &nbsp; &nbsp; &nbsp; &nbsp;
                         <label for="apellidos">Apellidos:</label>
                         <input type="text" name="apellidos" placeholder="Fernández" ng-model="contacto.apellidos" required/>
-                        <span ng-show="apellidoError">El campo apellido no puede estar vacio</span>
+                        
                     </li>
                     <li>
                         <label for="email">Correo electrónico:</label>
                         <input type="email" name="email" class="form-control" ng-model="contacto.email" required/>
-                        <span ng-show="emailError">Introduzca un email válido</span>
+                        
                     </li>
                     <li>
                         <label for="msg">Mensaje:</label>

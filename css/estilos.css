@@ -1,22 +1,11 @@
 #cabecera {
-    background: url();
+    background: url(https://media.discordapp.net/attachments/216653962529603584/719628110563377202/Anaitasuna.png);
     background-size: cover;
     color: white;
 }
 
-img {
-    position: absolute;
-    left: 500px;
-    top: 20px;
 
-}
 
-@media (max-width: 809px){
-    #cabecera {
-        background: url(../imagenes/escudorp.jpg);
-    }
-}
-/* Estilos del footer */
 
 footer {
     position: absolute;
@@ -41,9 +30,19 @@ html {
     margin: 10px;
     border: 1px solid black;
     background: darkgreen;
-    color: orange
+    
+}
+
+.deportes li a {
+    color: gold;
 }
 
 .deportes li:hover {
     background: green;
+}
+
+.formSocio {
+    margin: 2px;
+    padding: 10px;
+    border: 1px solid black;
 }

@@ -1,5 +1,30 @@
 var anaitasunaApp = angular.module('anaitasunaApp', ['ngRoute']);
 
+anaitasunaApp.config(function($routeProvider){
+
+	$routeProvider
+		.when('/', {
+			templateUrl : 'paginas/noticias.html',
+			controller : 'mainController'
+		})
+
+		.when('/secciones', {
+			templateUrl : 'paginas/secciones.html',
+			controller : 'seccionesController'
+		})
+
+		.when('/instalaciones', {
+			templateUrl : 'paginas/instalaciones.html',
+			controller : 'instalacionesController'
+		})
+
+		.when('/contacto', {
+			templateUrl : 'paginas/contacto.html',
+			controller : 'contactoController'
+		});
+});
+
+
 anaitasunaApp.factory('contactoDataService', function ($http){
 	var contactoData = {};
 
@@ -20,10 +45,21 @@ anaitasunaApp.factory('socioDataService', function ($http){
 		return promise;
 	}
 	return socioData;
+	
+})
+
+anaitasunaApp.factory('registroDataService', function ($http){
+	var registroData = {};
+
+	registroData.registrar = function (datosUsuario) {
+		var promise = $http({method: 'POST', url: 'php/secciones.php', data: datosUsuario});
+		return promise;
+	}
+	return registroData;
 })
 
 
-anaitasunaApp.controller('mainController', function($scope, socioDataService) {
+anaitasunaApp.controller('mainController', function($scope, $http ,socioDataService) {
 
 	$scope.bienvenida = 'Bienvenido a la web de Anaitasuna';
 
@@ -68,43 +104,60 @@ anaitasunaApp.controller('mainController', function($scope, socioDataService) {
 	}
 
 	
-	$scope.listar = function (){
+	$http.get("php/noticias.php")
+	.then(function(response){
+		$scope.noticias = response.data.records;
+		console.log($scope.noticias);
+	});
 
-		$http.get("php/noticias.php")
-		.then(function(response){
-			$scope.noticias = response.data.noticias;
-		});
-
-	}	
 
 
 });
 
-anaitasunaApp.controller('contactoController', function($scope, contactoDataService, $http){
+anaitasunaApp.controller('contactoController', function($scope, contactoDataService){
 
 	$scope.contacto = {};
 
 	$scope.validar = function (){
+
+		$scope.cajaErrores = false;
 		$scope.nombreError = false;
 		$scope.apellidoError = false;
 		$scope.emailError = false;
+		$scope.mensajeError = false;
 		$scope.mostrarMensajeExito = false;
 		$scope.mostrarMensajeError = false;
 
 		if (!$scope.formContacto.nombre.$valid) {
+			$scope.cajaErrores = true;
 			$scope.nombreError = true;
 		}
-		if (!$scope.formContacto.apellidos.$valid) {
+
+		if (!$scope.formContacto.apellidos.$valid && !$scope.cajaErrores) {
+			$scope.cajaErrores = true;
+			$scope.apellidoError = true;
+		} else if(!$scope.formContacto.apellidos.$valid && $scope.cajaErrores) {
 			$scope.apellidoError = true;
 		}
-		if (!$scope.formContacto.email.$valid) {
+
+		if (!$scope.formContacto.email.$valid && !$scope.cajaErrores) {
+			$scope.cajaErrores = true;
 			$scope.emailError = true;
+		} else if(!$scope.formContacto.email.$valid && $scope.cajaErrores) {
+			$scope.emailError = true;
+		}
+		
+		if (!$scope.formContacto.mensaje.$valid && !$scope.cajaErrores) {
+			$scope.cajaErrores = true;
+			$scope.mensajeError = true;
+		} else if(!$scope.formContacto.mensaje.$valid && $scope.cajaErrores) {
+			$scope.mensajeError = true;
 		}
 
 	if ($scope.formContacto.$valid) {
 
 			var promise = contactoDataService.registrar($scope.contacto);
-
+			console.log(promise);
 			promise.then(function () {
 				$scope.mostrarMensajeExito = true;
 				
@@ -124,78 +177,88 @@ anaitasunaApp.controller('contactoController', function($scope, contactoDataServ
 	
 });
 
-anaitasunaApp.config(function($routeProvider){
 
-	$routeProvider
-		.when('/', {
-			templateUrl : 'paginas/noticias.html',
-			controller : 'mainController'
-		})
-
-		.when('/secciones', {
-			templateUrl : 'paginas/secciones.html',
-			controller : 'seccionesController'
-		})
-
-		.when('/instalaciones', {
-			templateUrl : 'paginas/instalaciones.html',
-			controller : 'instalacionesController'
-		})
-
-		.when('/contacto', {
-			templateUrl : 'paginas/contacto.html',
-			controller : 'contactoController'
-		});
-});
-
-anaitasunaApp.controller('seccionesController', function($scope, $http){
+anaitasunaApp.controller('seccionesController', function($scope, registroDataService){
 
 	$scope.secciones = {};
 
-	$scope.secciones.datos = [
-		{ value: "balonmano", label: "Balonmano" },
-          { value: "gimnasia", label: "Gimnasia Rítmica" },
-          { value: "montañismo", label: "Montañismo"},
-		  { value: "ciclismo", label: "Ciclismo"},
-		  { value: "futbol", label: "Fútbol Sala"},
-		  { value: "halterofilia", label: "Halterofilia"},
-		  { value: "judo", label: "Judo"},
-		  { value: "natacion", label: "Natacion"},
-		  { value: "padel", label: "Padel"}
+	$scope.secciones.eleccion = [
+		{ value: "1", label: "Balonmano" },
+          { value: "2", label: "Gimnasia Rítmica" },
+          { value: "3", label: "Montañismo"},
+		  { value: "4", label: "Ciclismo"},
+		  { value: "5", label: "Fútbol Sala"},
+		  { value: "6", label: "Halterofilia"},
+		  { value: "7", label: "Judo"},
+		  { value: "8", label: "Natacion"},
+		  { value: "9", label: "Padel"}
 	]
 
-	$scope.añadirJugador = function (){
+	$scope.validar = function (){
+		
+		$scope.cajaErrores = false;
+		$scope.dniError = false;
+		$scope.nombreError = false;
+		$scope.apellidoError = false;
+		$scope.edadError = false;
+		$scope.emailError = false;
+		$scope.mostrarMensajeExito = false;
+		$scope.mostrarMensajeError = false;
 
-		if ($_POST['nombre'] !== "" && $_POST['apellidos'] !== "" && $_POST['edad'] !== "" && $_POST['email'] !== "" && $_POST['deporte'] !== "" && $_POST['socio'] !== ""){
-			
-			if ($_POST['socio'] == "si"){
-				socio = $scope.secciones.si
-			} else if ($_POST['socio'] == "no"){
-				socio = $scope.secciones.no
-			}
-
-			$http.post('php/secciones.php',{
-				'nombre': $scope.secciones.nombre,
-				'apellidos': $scope.secciones.apellidos,
-				'edad': $scope.secciones.edad,
-				'email': $scope.secciones.email,
-				'mensaje': $scope.secciones.deporte,
-				'socio' : $socio
-			})
-			.then(function(data, status, headers, config){
-				if (data.msg != ''){
-					$scope.secciones.push(data);
-					alert("Se enviaron datos");
-				}
-				alert("No se enviaron datos");
-			});
-		} else {
-			alert("Por favor, no se permiten campos vacios en el formulario");
+		if (!$scope.formAnadirSocio.dni.$valid) {
+			$scope.cajaErrores = true;
+			$scope.dniError = true;
 		}
+
+		if (!$scope.formAnadirSocio.nombre.$valid  && !$scope.cajaErrores) {
+			$scope.cajaErrores = true;
+			$scope.nombreError = true;
+		} else if(!$scope.formAnadirSocio.nombre.$valid && $scope.cajaErrores) {
+			$scope.nombreError = true;
+		}
+
+		if (!$scope.formAnadirSocio.apellido.$valid) {
+			$scope.cajaErrores = true;
+			$scope.apellidoError = true;
+		} else if(!$scope.formAnadirSocio.apellido.$valid && $scope.cajaErrores) {
+			$scope.apellidoError = true;
+		}
+
+		if (!$scope.formAnadirSocio.edad.$valid) {
+			$scope.cajaErrores = true;
+			$scope.edadError = true;
+		} else if(!$scope.formAnadirSocio.edad.$valid && $scope.cajaErrores) {
+			$scope.edadError = true;
+		}
+
+		if (!$scope.formAnadirSocio.email.$valid) {
+			$scope.cajaErrores = true;
+			$scope.emailError = true;
+		} else if(!$scope.formAnadirSocio.email.$valid && $scope.cajaErrores) {
+			$scope.emailError = true;
+		}
+
+		if ($scope.formAnadirSocio.$valid) {
+
+			var promise = registroDataService.registrar($scope.secciones);
+
+			promise.then(function () {
+				$scope.mostrarMensajeExito = true;
+
+			}, function(data) {
+
+				$scope.errorPromise = "Parece que ha habido un problema con tu petición";
+
+				if(data.status == 404)
+					$scope.errorPromise = "Parece que no se ha encontrado el recurso solicitado";
+				
+				$scope.mostrarMensajeError = true;
+			});
+
+			$scope.doShow = true;
+		}
+
 	}
-
-
-
 });
 
 anaitasunaApp.controller('instalacionesController', function($scope, $http){
@@ -204,16 +267,4 @@ anaitasunaApp.controller('instalacionesController', function($scope, $http){
 
 });
 
-
-
-function comprobarNombres (nombre){
-	let numeros = "0123456789";
-
-	for(i=0; i<nombre.length; i++){
-		if (numeros.indexOf(nombre.charAt(i),0) !== -1){
-			return true;
-		}
-	}
-	return false;
-}
 

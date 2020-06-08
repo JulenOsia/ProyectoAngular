@@ -15,33 +15,52 @@
             <li><a href="http://www.anaitasuna.com/secciones/padel/padel.html" target="_blank">Padel</a></li>
         </ul>
     </div>
-    <form name="formAnadirJugador" method="POST">
+    <div></div>
+    <form class="formSocio" name="formAnadirSocio" ng-submit="validar()" novalidate>
         <fieldset>
-            <legend>Inscríbase</legend>
+
+            <div ng-show="mostrarMensajeExito" class="alert alert-success" role="alert">
+                Gracias por su mensaje, le responderemos cuanto antes.
+            </div>
+            <div class="alert alert-danger" role="alert" ng-show="mostrarMensajeError">
+                {{ errorPromise }}
+            </div>
+
+            <legend>Inscríbase como socio</legend>
+            <div ng-show="cajaErrores" class="alert alert-danger" role="alert">
+                <p ng-show="dniError">El campo dni no puede estar vacio</p>
+                <p ng-show="nombreError">El campo nombre no puede estar vacio</p>
+                <p ng-show="apellidoError">El campo apellido no puede estar vacio</p>
+                <p ng-show="edadError">Debe introducir una edad entre 5 y 80 años</p>
+                <span ng-show="emailError">Introduzca un email válido</span>
+            </div>
+
+            <label>DNI:</label>
+            <input type="text" ng-model="secciones.dni" name="dni" class="form-control" required>
+
+            <br/>
             <label>Nombre:</label>
             <input type="text" ng-model="secciones.nombre" name="nombre" class="form-control" required>
-            <span ng-show="nombreError">Por favor, introduzca un nombre</span>
-            <label>Apellidos:</label>
-            <input type="text" ng-model="secciones.apellidos" name="apellidos" class="form-control" required>
-            <span ng-show="apellidoError">Por favor, introduzca un apellido</span>
-            <label for="edad">Edad:</label>
-            <input type="number" ng-model="secciones.edad" name="edad" min="5" max="80" class="form-control" required/>
-            <label for="email">Correo electrónico:</label>
-            <input type="email" ng-model="secciones.email" name="email" class="form-control" required/>
+
             <br/>
-            <select name="deporte" ng-model="secciones.deporte" ng-options="obj.value as obj.label for obj in secciones.datos">
-                <option value="">¿A que deporte le gustaria inscribirse?</option>
+            <label>Apellidos:</label>
+            <input type="text" ng-model="secciones.apellido" name="apellido" class="form-control" required>
+            
+            <br/>
+            <label>Edad:</label>
+            <input type="number" ng-model="secciones.edad" name="edad" min="5" max="80" class="form-control" required/>
+            <br/>
+            <label>Correo electrónico:</label>
+            <input type="email" ng-model="secciones.email" name="email" class="form-control" required/>
+
+            <br/>
+            <label>¿Le gustaría inscribirse en algún deporte?</label>
+            <select name="deportes" ng-model="secciones.deportes" ng-options="obj.value as obj.label for obj in secciones.eleccion">
+                <option value="">No, gracias</option>
             </select>
             <br/>
             <br/>
-            <label>¿Es usted socio?</label>
-            <br/>
-            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-            <input type="radio" ng-model="secciones.si" name="socio" value="si">Si 
-            &nbsp&nbsp&nbsp
-            <input type="radio" ng-model="secciones.no" name="socio" value="no">No
-            <br/><br/>
-            <button class="btn btn-success mb-2" ng-click="anadirJugador()" name="anadirJugador">Inscribirse</button>
+            <input type="submit" class="btn btn-success mb-2" value="Registro" />
             <button type="reset" class="btn btn-danger mb-2">Limpiar</button>
         </fieldset>
     </form>
