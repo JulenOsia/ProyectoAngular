@@ -1,9 +1,21 @@
 #cabecera {
-    background: url(../imagenes/escudorp.jpg);
+    background: url();
     background-size: cover;
     color: white;
 }
 
+img {
+    position: absolute;
+    left: 500px;
+    top: 20px;
+
+}
+
+@media (max-width: 809px){
+    #cabecera {
+        background: url(../imagenes/escudorp.jpg);
+    }
+}
 /* Estilos del footer */
 
 footer {
@@ -14,9 +26,24 @@ footer {
 
 body {
     margin-bottom:80px;
+    background-color: gray;
 }
 
 html {
     position: relative;
     min-height: 100%;
+}
+
+.deportes li {
+    display: inline;
+    size: 3em;
+    padding: 6px;
+    margin: 10px;
+    border: 1px solid black;
+    background: darkgreen;
+    color: orange
+}
+
+.deportes li:hover {
+    background: green;
 }

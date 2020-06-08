@@ -22,7 +22,8 @@ anaitasunaApp.factory('socioDataService', function ($http){
 	return socioData;
 })
 
-anaitasunaApp.controller('mainController', function($scope, $http) {
+
+anaitasunaApp.controller('mainController', function($scope, socioDataService) {
 
 	$scope.bienvenida = 'Bienvenido a la web de Anaitasuna';
 
@@ -44,9 +45,9 @@ anaitasunaApp.controller('mainController', function($scope, $http) {
 		if ($scope.formSocio.$valid) {
 
 			var promise = socioDataService.comprobar($scope.socio);
-
 			promise.then(function(){
-				if (promise == 'true') {
+				console.log(promise);
+				if (promise === 'false') {
 					$scope.esSocio = true;
 				} else {
 					$scope.noSocio = true;
@@ -66,25 +67,20 @@ anaitasunaApp.controller('mainController', function($scope, $http) {
 		}
 	}
 
-
-	/* var noticiasData = {};
-
-	noticiasData.comprobar = function (datosUsuario) {
-
-		var promise = $http({method: 'POST', url: 'php/socios.php', data: datosUsuario});
-		return promise;
-	}
 	
-	$http.get('php/noticias.php').then(function(datos){
+	$scope.listar = function (){
 
-		$scope.noticias = datos.data;
-			
-	})
-	*/
+		$http.get("php/noticias.php")
+		.then(function(response){
+			$scope.noticias = response.data.noticias;
+		});
+
+	}	
+
 
 });
 
-anaitasunaApp.controller('contactoController', function($scope, contactoDataService){
+anaitasunaApp.controller('contactoController', function($scope, contactoDataService, $http){
 
 	$scope.contacto = {};
 

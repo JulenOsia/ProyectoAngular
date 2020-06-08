@@ -9,11 +9,22 @@
 	    or die('No se pudo conectar: ' . mysql_error());
 	
 	// Realizar una consulta MySQL
-	$query = "select nombre, apellidos from socios where nombre = $obj->nombre AND DNI = $obj->dni";
+	$query = "SELECT CASE WHEN EXISTS (
+        SELECT dni,nombre
+        FROM socios
+        WHERE dni = '$obj->dni' AND nombre = '$obj->nombre')
+    THEN 'true'
+    ELSE 'false'
+    END";
 
-	$result = mysqli_query($link, $query) or die('Consulta fallida: ' . mysql_error());
+	$result = mysqli_query($link, $query) or die('Consulta fallida: ');
 
-	$resultData = array("id"=>mysqli_insert_id($link));
+	if ($query === "false") {
+		$resultData = array('true');
+	} else {
+		$resultData = array('false');
+	}
+	
 
 	echo json_encode($resultData);
 ?>

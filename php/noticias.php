@@ -9,14 +9,7 @@
 	    or die('No se pudo conectar: ' . mysql_error());
 	
 	// Realizar una consulta MySQL
-	$query = "SELECT CASE WHEN EXISTS (
-        SELECT dni,nombre
-        FROM socios
-        WHERE dni = '$obj->dni' AND nombre = '$obj->nombre'
-    )
-    THEN CAST('true')
-    ELSE CAST('false')
-    END";
+	
 
 	$result = mysqli_query($link, $query) or die('Consulta fallida: ' . mysql_error());
 
