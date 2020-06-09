@@ -1,19 +1,23 @@
 var anaitasunaApp = angular.module('anaitasunaApp', ['ngRoute']);
 
+//Rutas de la aplicación web
 anaitasunaApp.config(function($routeProvider){
 
 	$routeProvider
 		.when('/', {
+			//Sección Inicio
 			templateUrl : 'paginas/noticias.html',
 			controller : 'mainController'
 		})
 
 		.when('/secciones', {
+			//Sección Deportes
 			templateUrl : 'paginas/secciones.html',
 			controller : 'seccionesController'
 		})
 
 		.when('/contacto', {
+			//Sección Contacto
 			templateUrl : 'paginas/contacto.html',
 			controller : 'contactoController'
 		});
