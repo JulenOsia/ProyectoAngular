@@ -17,22 +17,29 @@
 
             <p>DNI</p>
             <input type="text" ng-model="socio.dni" name="dni" required/><br/>
-            <span ng-show="dniError" class="alert alert-danger">El campo dni no puede estar vacio</span>
+            <span ng-show="dniError">El campo dni no puede estar vacio</span>
             <br/>
             <p>Nombre</p>
             <input type="text" ng-model="socio.nombre" name="nombre" required/><br/>
-            <span ng-show="nombreError" class="alert alert-danger">El campo nombre no puede estar vacio</span>
+            <span ng-show="nombreError">El campo nombre no puede estar vacio</span>
             <br/>
-            <input type="submit" class="btn btn-primary mb-2" value ="Comprobar">
+            <input type="submit" class="btn btn-primary mb-2" value="Comprobar">
         </form>
     </div>
 
     
     <div class="col-sm-8">
         <h2>Noticias</h2>
-        <div ng-repeat="noticia in noticias">
+        <div ng-show="mostrar3" ng-repeat="noticia in noticias.noticias | orderBy: '-fecha' | limitTo: 3">
             <h3>{{ noticia.titulo }}</h3>
+            <p>{{ noticia.fecha }}</p>
             <p>{{ noticia.descripcion }}</p>
-        </div>  
+        </div>
+        <div ng-hide="mostrarTodo" ng-repeat="noticia in noticias.noticias | orderBy: '-fecha'">
+            <h3>{{ noticia.titulo }}</h3>
+            <p>{{ noticia.fecha }}</p>
+            <p>{{ noticia.descripcion }}</p>
+        </div>
+        <button ng-click="mostrarMas()" class="btn btn-primary mb-2" ng-hide="boton">Mostrar más</button>
     </div>
 </div>

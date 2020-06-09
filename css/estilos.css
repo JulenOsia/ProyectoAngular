@@ -1,10 +1,12 @@
 #cabecera {
     background: url(https://media.discordapp.net/attachments/216653962529603584/719628110563377202/Anaitasuna.png);
-    background-size: cover;
-    color: white;
+    color: darkgreen;
 }
 
-
+.nav-item {
+    font-size: 1.5em;
+    padding: 0px, 20px;
+}
 
 
 footer {
@@ -30,7 +32,6 @@ html {
     margin: 10px;
     border: 1px solid black;
     background: darkgreen;
-    
 }
 
 .deportes li a {

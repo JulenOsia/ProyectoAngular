@@ -1,0 +1,29 @@
+{
+    "noticias": [
+        {
+            "titulo": "Reapertura de las piscinas exteriores",
+            "descripcion": "Desde este próximo fin de semana, las piscinas exteriores se reabrirán para el público hasta el final de la temporada de verano. Les informamos que deben de respetar a los socorristas y cuidar el espacio abierto para el disfrute de todos. \n Además, el día de la inauguración a las 16:00, habrá preparado un evento para los niños con un hinchables y juegos variados.",
+            "fecha": "25-06-2020"
+        },
+        {
+            "titulo": "Ven a apoyar a nuestro equipo de balonmano",
+            "descripcion": "El proximo día 25 de mayo a 12:00, nuestro equipo de balonmano, SCR Anaitasuna se juega el pase a la liga de campeones del próximo año contra el Rios Renovables. \n \n Los precios de las entradas son los siguientes:\n - 1 adulto: 8€ (antes 12€)\n - 2 adultos: 15€ (antes 20€)\n\nLas entradas de los niños a partir de 8 años serán de 1€ por cada niño acompañado de un adulto responsable.\n\nLlenemos el pabellón y seamos el jugador extra para ayudar a nuestro equipo favorito, la apertura de puertas será a las 11:00.",
+            "fecha": "11-05-2020"
+        },
+        {
+            "titulo": "XII Marcha a la Sierra del Perdón",
+            "descripcion": "El día 21 de Junio se celebrará la tradicional excursión a la Sierra del Perdón.\n\nLa hora de salida es a las 7:30 de la mañana en la puerta de Anaitasuna y la duración de la excursión será de entorno a 7 horas en las que recorreremos 30 kilometros \n \n Las inscripciones ya están disponibles en recepción con un precio de 5€ por persona mayor de 12 años.",
+            "fecha": "17-06-2020"
+        },
+        {
+            "titulo": "Sesión libre de Gimnasia Ritmica",
+            "descripcion": "El miercoles 15 de Junio habrá una sesión pública de nuestro equipo de gimnasia rítmica a partir de las 7 de la tarde, la entrada es gratuita.",
+            "fecha": "13-06-2020"
+        },
+        {
+            "titulo": "Concurso de dibujos para la próxima portada de la revista Anaitasuna",
+            "descripcion": "Nuestro anual concurso de dibujos ya ha comenzado, teneis desde el día 3 hasta el día 10 para que los más txikis nos manden sus dibujos sobre lo divertido que es Anaitasuna. \n Los niños participantes deberán ser menores de 10 años y el ganador se comunicará el día 3 conseguirá una camiseta firmada por todos los jugadores de nuestro equipo de balonmano y su dibujo será la portada de la revista Anaitasuna del mes que viene. \n \n Mucha suerte a todos.",
+            "fecha": "02-03-2020"
+        }
+    ]
+}

@@ -13,18 +13,13 @@ anaitasunaApp.config(function($routeProvider){
 			controller : 'seccionesController'
 		})
 
-		.when('/instalaciones', {
-			templateUrl : 'paginas/instalaciones.html',
-			controller : 'instalacionesController'
-		})
-
 		.when('/contacto', {
 			templateUrl : 'paginas/contacto.html',
 			controller : 'contactoController'
 		});
 });
 
-
+// Factoría del formulario de contactos
 anaitasunaApp.factory('contactoDataService', function ($http){
 	var contactoData = {};
 
@@ -36,6 +31,7 @@ anaitasunaApp.factory('contactoDataService', function ($http){
 	return contactoData;
 })
 
+// Factoría del formulario de socios
 anaitasunaApp.factory('socioDataService', function ($http){
 	var socioData = {};
 
@@ -48,21 +44,45 @@ anaitasunaApp.factory('socioDataService', function ($http){
 	
 })
 
+// Factoría del formulario de comprobación de socios
 anaitasunaApp.factory('registroDataService', function ($http){
 	var registroData = {};
 
 	registroData.registrar = function (datosUsuario) {
+
 		var promise = $http({method: 'POST', url: 'php/secciones.php', data: datosUsuario});
 		return promise;
 	}
 	return registroData;
+	
 })
 
+// Controlador de la página principal - Inicio
+anaitasunaApp.controller('mainController', function($scope, $http, socioDataService) {
 
-anaitasunaApp.controller('mainController', function($scope, $http ,socioDataService) {
+	//Configuración de las noticias
 
-	$scope.bienvenida = 'Bienvenido a la web de Anaitasuna';
+	$scope.importar = function (){
 
+		$http.get('lib/noticias.json').then(function(datos){
+			
+			$scope.noticias = datos.data;
+			
+		})
+	}
+	$scope.importar();
+
+	$scope.mostrar3 = true;
+	$scope.mostrarTodo = true;
+	$scope.boton = false;
+
+	$scope.mostrarMas = function() {
+		$scope.mostrar3 = false;
+		$scope.mostrarTodo = false;
+		$scope.boton = true;
+	} 
+
+	//Configuración de la comprobación de socios
 	$scope.socio = {};
 
 	$scope.validar = function (){
@@ -103,17 +123,11 @@ anaitasunaApp.controller('mainController', function($scope, $http ,socioDataServ
 		}
 	}
 
-	
-	$http.get("php/noticias.php")
-	.then(function(response){
-		$scope.noticias = response.data.records;
-		console.log($scope.noticias);
-	});
-
-
 
 });
 
+
+//Controlador de la página de Contacto
 anaitasunaApp.controller('contactoController', function($scope, contactoDataService){
 
 	$scope.contacto = {};
@@ -178,6 +192,7 @@ anaitasunaApp.controller('contactoController', function($scope, contactoDataServ
 });
 
 
+//Controlador de la página de Deportes
 anaitasunaApp.controller('seccionesController', function($scope, registroDataService){
 
 	$scope.secciones = {};
@@ -261,10 +276,5 @@ anaitasunaApp.controller('seccionesController', function($scope, registroDataSer
 	}
 });
 
-anaitasunaApp.controller('instalacionesController', function($scope, $http){
-
-	$scope.cabecera = 'Nuestras instalaciones';
-
-});
 
 
